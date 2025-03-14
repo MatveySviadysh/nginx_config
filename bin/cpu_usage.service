@@ -1,0 +1,13 @@
+[Unit]
+Description=CPU Usage
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/cpu_usage.sh
+Restart=always
+RestartSec=3
+User=www-data
+Group=www-data
+
+[Install]
+WantedBy=multi-user.target
