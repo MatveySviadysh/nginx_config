@@ -14,7 +14,7 @@ COPY ./view/cpu/cpu_usage.sh /usr/local/bin/cpu_usage.sh
 RUN chmod +x /usr/local/bin/cpu_usage.sh
 
 COPY ./view/cpu/cpu_usage.txt /var/www/cpu/cpu_usage.txt
-
+COPY ./view/cpu/index.html /var/www/cpu/index.html
 COPY ./view/images/ /var/www/images/
 
 COPY ./view/home.html /usr/share/nginx/html/
