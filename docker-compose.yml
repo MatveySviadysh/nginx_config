@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  nginx:
+    build:
+      context: ./maindocker
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: on-failure
+  redblue:
+    build:
+      context: ./redbluedocker
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+      - "8082:8082"
+    restart: always
