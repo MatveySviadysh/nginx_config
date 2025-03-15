@@ -1,16 +1,31 @@
-version: "3.8"
+
+version: '3.8'
 
 services:
   nginx:
-    build: .
-    container_name: my_nginx
+    build:
+      context: ./maindocker
+      dockerfile: Dockerfile
+    container_name: nginx-main
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       - apache
+    restart: on-failure
     networks:
-      - my_network
-
+      - nginx-network
+  redblue:
+    build:
+      context: ./redbluedocker
+      dockerfile: Dockerfile
+    container_name: nginx-redblue
+    ports:
+      - "8081:8081"
+      - "8082:8082"
+    networks:
+      - nginx-network
+      
   apache:
     image: php:7.4-apache
     container_name: apache_server
@@ -19,9 +34,8 @@ services:
     ports:
       - "8080:80"
     networks:
-      - my_network
-
+      - nginx-network
 
 networks:
-  my_network:
+  nginx-network:
     driver: bridge
