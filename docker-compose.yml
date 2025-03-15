@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  nginx:
+    build: .
+    container_name: my_nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - apache
+    networks:
+      - my_network
+
+  apache:
+    image: php:7.4-apache
+    container_name: apache_server
+    volumes:
+      - ./apache/html:/var/www/html
+    ports:
+      - "8080:80"
+    networks:
+      - my_network
+
+
+networks:
+  my_network:
+    driver: bridge
