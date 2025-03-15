@@ -1,3 +1,4 @@
+
 version: '3.8'
 
 services:
@@ -9,6 +10,8 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    depends_on:
+      - apache
     restart: on-failure
     networks:
       - nginx-network
@@ -22,8 +25,17 @@ services:
       - "8082:8082"
     networks:
       - nginx-network
+      
+  apache:
+    image: php:7.4-apache
+    container_name: apache_server
+    volumes:
+      - ./apache/html:/var/www/html
+    ports:
+      - "8080:80"
+    networks:
+      - nginx-network
 
 networks:
   nginx-network:
     driver: bridge
-
